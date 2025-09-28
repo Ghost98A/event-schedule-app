@@ -1,0 +1,1 @@
+Basic event schedule app implemented with add/delete functionality and date sorting. Uses built-in browser date/time inputs for easy date handling. Styled with CSS for a clean, modern look.

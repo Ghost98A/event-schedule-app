@@ -1,34 +1,96 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+type Event = {
+  id: number
+  title: string
+  date: string
+  time: string
+  description: string
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [events, setEvents] = useState<Event[]>([
+    {
+      id: 1,
+      title: 'Team Meeting',
+      date: '2024-02-01',
+      time: '10:00',
+      description: 'Weekly team sync'
+    }
+  ])
+
+  const [newEvent, setNewEvent] = useState<Omit<Event, 'id'>>({ 
+    title: '',
+    date: '',
+    time: '',
+    description: ''
+  })
+
+  const handleAddEvent = () => {
+    if (!newEvent.title || !newEvent.date || !newEvent.time) return
+    
+    setEvents(prev => [...prev, {
+      ...newEvent,
+      id: Math.max(0, ...prev.map(e => e.id)) + 1
+    }])
+
+    setNewEvent({
+      title: '',
+      date: '',
+      time: '',
+      description: ''
+    })
+  }
+
+  const handleDeleteEvent = (id: number) => {
+    setEvents(prev => prev.filter(event => event.id !== id))
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Event Schedule</h1>
+      
+      <div className="add-event">
+        <h2>Add New Event</h2>
+        <input
+          type="text"
+          placeholder="Event Title"
+          value={newEvent.title}
+          onChange={e => setNewEvent(prev => ({ ...prev, title: e.target.value }))}
+        />
+        <input
+          type="date"
+          value={newEvent.date}
+          onChange={e => setNewEvent(prev => ({ ...prev, date: e.target.value }))}
+        />
+        <input
+          type="time"
+          value={newEvent.time}
+          onChange={e => setNewEvent(prev => ({ ...prev, time: e.target.value }))}
+        />
+        <textarea
+          placeholder="Description"
+          value={newEvent.description}
+          onChange={e => setNewEvent(prev => ({ ...prev, description: e.target.value }))}
+        />
+        <button onClick={handleAddEvent}>Add Event</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <div className="events-list">
+        <h2>Scheduled Events</h2>
+        {events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+          .map(event => (
+          <div key={event.id} className="event-card">
+            <h3>{event.title}</h3>
+            <p>Date: {new Date(event.date).toLocaleDateString()}</p>
+            <p>Time: {event.time}</p>
+            {event.description && <p>Description: {event.description}</p>}
+            <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
+          </div>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
