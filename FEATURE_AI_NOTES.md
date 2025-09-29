@@ -1,1 +1,1 @@
-Updated index.css to set background-color: white on the body element
+Added alarm functionality using browser notifications. Events can now have an alarm toggle that will trigger a notification when the event time arrives. The app checks for upcoming events every 30 seconds. Users will need to grant notification permissions for the alarms to work.
