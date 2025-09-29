@@ -1,1 +1,1 @@
-Added light/dark theme toggle with context and styling. The theme toggle button appears in the top-right corner. Theme affects colors of all components including inputs, cards, and buttons.
+Created a separate ThemeToggle component with a select dropdown and moved theme context logic to its own file. The theme toggle is now more explicit with a dropdown selection rather than just a button toggle.

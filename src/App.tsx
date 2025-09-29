@@ -1,17 +1,7 @@
-import { useState, createContext, useContext } from 'react'
+import { useState } from 'react'
 import './App.css'
-
-type Theme = 'light' | 'dark'
-
-type ThemeContextType = {
-  theme: Theme
-  toggleTheme: () => void
-}
-
-const ThemeContext = createContext<ThemeContextType>({ 
-  theme: 'light',
-  toggleTheme: () => {}
-})
+import { ThemeProvider } from './contexts/ThemeContext'
+import { ThemeToggle } from './components/ThemeToggle'
 
 type Event = {
   id: number
@@ -22,7 +12,6 @@ type Event = {
 }
 
 function App() {
-  const [theme, setTheme] = useState<Theme>('light')
   const [events, setEvents] = useState<Event[]>([
     {
       id: 1,
@@ -39,10 +28,6 @@ function App() {
     time: '',
     description: ''
   })
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light')
-  }
 
   const handleAddEvent = () => {
     if (!newEvent.title || !newEvent.date || !newEvent.time) return
@@ -65,13 +50,9 @@ function App() {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={`container ${theme}`}>
-        <div className="theme-toggle">
-          <button onClick={toggleTheme}>
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
-        </div>
+    <ThemeProvider>
+      <div className="container">
+        <ThemeToggle />
 
         <h1>Event Schedule</h1>
         
@@ -115,7 +96,7 @@ function App() {
           ))}
         </div>
       </div>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   )
 }
 
