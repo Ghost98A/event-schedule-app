@@ -2,70 +2,112 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  transition: all 0.3s ease;
 }
 
-.add-event {
-  background: #f5f5f5;
-  padding: 20px;
-  border-radius: 8px;
+.container.light {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.container.dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.theme-toggle {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 20px;
 }
 
-.add-event input,
-.add-event textarea {
+.theme-toggle button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.light .theme-toggle button:hover {
+  background-color: #f0f0f0;
+}
+
+.dark .theme-toggle button:hover {
+  background-color: #444444;
+}
+
+.add-event {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.light .add-event {
+  background-color: #f5f5f5;
+}
+
+.dark .add-event {
+  background-color: #444444;
+}
+
+input, textarea {
   display: block;
   width: 100%;
   margin-bottom: 10px;
   padding: 8px;
-  border: 1px solid #ddd;
   border-radius: 4px;
+  border: 1px solid #ddd;
 }
 
-.add-event textarea {
-  height: 100px;
-  resize: vertical;
+.dark input, .dark textarea {
+  background-color: #555555;
+  color: #ffffff;
+  border-color: #666666;
 }
 
 button {
-  background: #646cff;
-  color: white;
-  border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+  border: none;
+}
+
+.light button {
+  background-color: #007bff;
+  color: white;
+}
+
+.dark button {
+  background-color: #0056b3;
+  color: white;
 }
 
 button:hover {
-  background: #747bff;
-}
-
-.events-list {
-  display: grid;
-  gap: 20px;
+  opacity: 0.9;
 }
 
 .event-card {
-  background: white;
-  padding: 20px;
+  padding: 15px;
+  margin-bottom: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.light .event-card {
+  background-color: #f5f5f5;
+}
+
+.dark .event-card {
+  background-color: #444444;
 }
 
 .event-card h3 {
   margin-top: 0;
-  color: #213547;
-}
-
-.event-card p {
-  margin: 8px 0;
-  color: #666;
 }
 
 .event-card button {
-  background: #ff4646;
-  margin-top: 10px;
-}
-
-.event-card button:hover {
-  background: #ff5e5e;
+  background-color: #dc3545;
+  color: white;
 }

@@ -1,1 +1,1 @@
-Basic event schedule app implemented with add/delete functionality and date sorting. Uses built-in browser date/time inputs for easy date handling. Styled with CSS for a clean, modern look.
+Added light/dark theme toggle with context and styling. The theme toggle button appears in the top-right corner. Theme affects colors of all components including inputs, cards, and buttons.
