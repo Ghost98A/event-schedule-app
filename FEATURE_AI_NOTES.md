@@ -1,1 +1,1 @@
-Created a separate ThemeToggle component with a select dropdown and moved theme context logic to its own file. The theme toggle is now more explicit with a dropdown selection rather than just a button toggle.
+Updated index.css to set background-color: white on the body element
