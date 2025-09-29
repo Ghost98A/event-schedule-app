@@ -3,26 +3,36 @@ on:
   workflow_dispatch:
     inputs:
       branch_name:
-        description: "Name for the new branch"
+        description: 'Name for the new branch'
         required: true
         type: string
       request:
-        description: "Feature request description"
+        description: 'Feature request description'
         required: true
         type: string
       username:
-        description: "GitHub username"
+        description: 'GitHub username'
         required: true
         type: string
       current_node:
-        description: "Current workspace node (optional)"
+        description: 'Current workspace node (optional)'
         required: false
         type: string
       base_branch:
-        description: "Base branch to create feature from"
+        description: 'Base branch to create feature from'
+        required: false
+        default: 'main'
+        type: string
+      environment:
+        description: 'Deployment environment'
+        required: false
+        default: 'staging'
+        type: string
+      runtime_vars:
+        description: 'Runtime variables'
         required: false
         type: string
-        default: "main"
+
 
 jobs:
   create-feature:
