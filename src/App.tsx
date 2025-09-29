@@ -1,34 +1,129 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+type EventData = {
+  title: string
+  date: string
+  time: string
+  description: string
+  location: string
+}
+
+function EventPreview({ event }: { event: EventData }) {
+  return (
+    <div className="preview-card">
+      <h3>{event.title || 'Event Title'}</h3>
+      <p><strong>Date:</strong> {event.date || 'TBD'}</p>
+      <p><strong>Time:</strong> {event.time || 'TBD'}</p>
+      <p><strong>Location:</strong> {event.location || 'TBD'}</p>
+      <p><strong>Description:</strong></p>
+      <p>{event.description || 'No description provided'}</p>
+    </div>
+  )
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [showPreview, setShowPreview] = useState(true)
+  const [eventData, setEventData] = useState<EventData>({
+    title: '',
+    date: '',
+    time: '',
+    description: '',
+    location: ''
+  })
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setEventData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <h1>Event Creator</h1>
+      
+      <button 
+        className="preview-toggle"
+        onClick={() => setShowPreview(!showPreview)}
+      >
+        {showPreview ? 'Hide Preview' : 'Show Preview'}
+      </button>
+
+      <div className="content-wrapper">
+        <div className="form-section">
+          <form>
+            <div className="form-group">
+              <label htmlFor="title">Event Title:</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={eventData.title}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="date">Date:</label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={eventData.date}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="time">Time:</label>
+              <input
+                type="time"
+                id="time"
+                name="time"
+                value={eventData.time}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="location">Location:</label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={eventData.location}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="description">Description:</label>
+              <textarea
+                id="description"
+                name="description"
+                value={eventData.description}
+                onChange={handleInputChange}
+                rows={4}
+                required
+              />
+            </div>
+          </form>
+        </div>
+
+        {showPreview && (
+          <div className="preview-section">
+            <h2>Preview</h2>
+            <EventPreview event={eventData} />
+          </div>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
